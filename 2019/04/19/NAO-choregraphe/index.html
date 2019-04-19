@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>NAO choregraphe | Wtyuyuyu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来 NAO机器人简介">
+  <meta name="description" content="跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来 NAO机器人简介NAO 是一个应用遍及全球教育市场的双足人形机器人。58公分高的 NAO 拥有与人类一样自然的肢体语言，能够听、能够看、能够说 ，也能够与人互动 ，或 NAO 之间彼此进行互动。NAO 提供一个独立、完全可编程、功能强大且易用的操作应用环境。（官网复制，嘻嘻） 语言指令盒（say，say te">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NAO choregraphe">
 <meta property="og:url" content="http://yoursite.com/2019/04/19/NAO-choregraphe/index.html">
 <meta property="og:site_name" content="Wtyuyuyu">
-<meta property="og:description" content="跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来 NAO机器人简介">
+<meta property="og:description" content="跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来 NAO机器人简介NAO 是一个应用遍及全球教育市场的双足人形机器人。58公分高的 NAO 拥有与人类一样自然的肢体语言，能够听、能够看、能够说 ，也能够与人互动 ，或 NAO 之间彼此进行互动。NAO 提供一个独立、完全可编程、功能强大且易用的操作应用环境。（官网复制，嘻嘻） 语言指令盒（say，say te">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-19T13:02:29.869Z">
+<meta property="og:updated_time" content="2019-04-19T15:15:33.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NAO choregraphe">
-<meta name="twitter:description" content="跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来 NAO机器人简介">
+<meta name="twitter:description" content="跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来 NAO机器人简介NAO 是一个应用遍及全球教育市场的双足人形机器人。58公分高的 NAO 拥有与人类一样自然的肢体语言，能够听、能够看、能够说 ，也能够与人互动 ，或 NAO 之间彼此进行互动。NAO 提供一个独立、完全可编程、功能强大且易用的操作应用环境。（官网复制，嘻嘻） 语言指令盒（say，say te">
   
     <link rel="alternative" href="/atom.xml" title="Wtyuyuyu" type="application/atom+xml">
   
@@ -179,7 +179,20 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>跟老师做场景感知得在NAO机器人上实现，看完初级教程后，总结了模拟器上的部分功能记录下来</p>
-<h1 id="NAO机器人简介"><a href="#NAO机器人简介" class="headerlink" title="NAO机器人简介"></a>NAO机器人简介</h1>
+<h2 id="NAO机器人简介"><a href="#NAO机器人简介" class="headerlink" title="NAO机器人简介"></a>NAO机器人简介</h2><p>NAO 是一个应用遍及全球教育市场的双足人形机器人。58公分高的 NAO 拥有与人类一样自然的肢体语言，能够听、能够看、能够说 ，也能够与人互动 ，或 NAO 之间彼此进行互动。NAO 提供一个独立、完全可编程、功能强大且易用的操作应用环境。（官网复制，嘻嘻）</p>
+<h3 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h3><p>指令盒（say，say text+Get Localized Text)，<br>可修改语言，说话速度，说话内容</p>
+<h3 id="行走"><a href="#行走" class="headerlink" title="行走"></a>行走</h3><p>Stand up<br>Walk toward，move toward<br>move to<br>move along（Move along a trajectory given by an attached .pmt file.）<br>可指定X，Y，角度</p>
+<p>Python指令盒（脚本编辑器）<br>在onInput_onStart方法中输入以下代码。<br>motionProxy = ALProxy(“ALMotion”)<br>motionProxy.walkTo(0.2, 0.0, 0.0)<br>self.onStopped()<br> 第一行，创建一个代理，使机器人可以调动运动功能<br> 第二行，调用走路，使机器人可以移动到指定的距离，第一个参数代表X上的<br> 距离，第二个参数代表Y上的距离，第三个参数代表θ上的角度，<br> 最后一行，调用一个方法来终止次程序</p>
+<h3 id="语音识别"><a href="#语音识别" class="headerlink" title="语音识别"></a>语音识别</h3><p>指令盒 speech Reco.<br>Word list定义NAO的已知单词库<br>Word list里可设置多个字符<br>Confidence Threshold定义了NAO听到的声音，与已知单词库中声音的相似度，百分比越大表明越相似。<br>执行程序后机器人滴一声，眼睛蓝色变为蓝色；一旦听到人说话，它的眼睛就会变黄；如果听懂了，眼睛会呈绿色闪烁。如果不明白，眼睛会闪烁红色。<br>Switch case</p>
+<p>Speech reco + 自定义python语音识别（注意输入内容的类型，改为string，即前者输出类型）<br>以下两行添加到onInput_onStart方法里面。<br>ttsProxy = ALProxy(“ALTextToSpeech”)<br>ttsProxy.say(“Hello, I am ” + p)<br>可实现 “Hello，I am +语音识别输出”</p>
+<h3 id="跳舞"><a href="#跳舞" class="headerlink" title="跳舞"></a>跳舞</h3><p>时间轴指令盒（关键帧）<br>Counter 循环指令盒（可设置起始值，步长，终止值）<br>看过一篇毕设，似乎可以直接通过视频选取关键帧学习跳舞</p>
+<h3 id="感官"><a href="#感官" class="headerlink" title="感官"></a>感官</h3><p>Bumper指令盒</p>
+<p>Moniter监控器程序。<br>通过memory此处来观察机器人里面的传感器数据。<br>这个软件还不会使</p>
+<h3 id="面部检测与识别"><a href="#面部检测与识别" class="headerlink" title="面部检测与识别"></a>面部检测与识别</h3><p>Select camara：调用机器人的相机<br>Face Detection：面部识别（返回识别到的脸的个数）<br>Sound tracker：声音追踪指令盒</p>
+<p>自动寻找周围的人类<br>时间轴（不断扫描）+面部识别</p>
+<h3 id="物体识别"><a href="#物体识别" class="headerlink" title="物体识别"></a>物体识别</h3><p>NAOMark指令盒（识别不同样式的NAO标签），结合switch case<br>建立一个已知对象数据库（视觉识别库）<br>1.打开视频显示器，新视觉识别数据库<br>2.播放按钮<br>3.学习按钮，暂时暂停，点击想要被识别物体的边框，结束分辨时单击第一点<br>4.上传到机器人<br>使用vision reco物体识别指令盒（输出：识别到的物体名字）</p>
+<h4 id="走向被识别物体"><a href="#走向被识别物体" class="headerlink" title="走向被识别物体"></a>走向被识别物体</h4><p>创建新视觉识别库（同一物体多角度多方向）<br>实现：Vision reco+自定义python指令盒<br>颜色不是一个好的物体特征，复杂物体最好提供多个特征</p>
+
       
 
       
