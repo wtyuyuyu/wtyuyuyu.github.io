@@ -177,33 +177,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="安装choregraphe"><a href="#安装choregraphe" class="headerlink" title="安装choregraphe"></a>安装choregraphe</h2><p>Choregraphe软件是阿尔德巴兰公司开发的一款编程软件，它是一个支持多平台的图形化桌面应用程序。允许你创建动画、行为和对话；并可以在模拟机器人上或直接在真实的机器人上进行测试；监测和控制控你的机器人；用自己的Python代码(仅支持python)丰富Choregraphe的行为。软件中自带许多的标准指令盒，可以利用这些资源而无需编写任何代码控制nao机器人完成许多任务。</p>
-<p>该软件可以从官方网站下载，下载之前需要先注册个人账号（sofbank是日本的公司，有时候科学上网注册不了账号别急，多试试）<br>官网链接：<a href="https://community.ald.softbankrobotics.com/en/resources/software/language/en-gb/robot/nao-2" target="_blank" rel="noopener">https://community.ald.softbankrobotics.com/en/resources/software/language/en-gb/robot/nao-2</a></p>
-<p><img src="/2019/04/21/ubuntu下python环境搭建/1.jpg" alt></p>
-<p>官方提供了Linux32和Linux64的安装包或者二进制包。根据自己的操作系统选择安装包即可，我这里选择的是Linux64的安装包。下载完成后需要为其添加可执行权限，并且运行时需要使用 root 权限。通过以下命令</p>
-<p>sudo choregraphe-suite-2.1.4.13-linux64-setup.run</p>
-<p>即可运行安装程序。安装过程中需要提供密钥，官网提供的密钥为：“654e-4564-153c-6518-2f44-7562-206e-4c60-5f47-5f45”。（我安装过程中没需要输入安装密钥）</p>
-<h2 id="确保python是2-7版本"><a href="#确保python是2-7版本" class="headerlink" title="确保python是2.7版本"></a>确保python是2.7版本</h2><p>可使用 python -V 查看当前的python版本。如果不是2.7，可以手动切换python版本(网上有许多教程，我默认就是2.7，就不挂连接了)</p>
-<h2 id="安装用于python的NAOqi-SDK"><a href="#安装用于python的NAOqi-SDK" class="headerlink" title="安装用于python的NAOqi SDK"></a>安装用于python的NAOqi SDK</h2><p><em>(1)下载NAOqi SDK</em></p>
-<p>要通过电脑对nao机器人进行程序开发，还需要安装NAOqi SDK，NAOqi SDK是用于NAOqi开发的python库。同样可以从官方开源社区下载<br>官网连接：<a href="https://community.ald.softbankrobotics.com/en/resources/software/language/en-gb/robot/nao-2" target="_blank" rel="noopener">https://community.ald.softbankrobotics.com/en/resources/software/language/en-gb/robot/nao-2</a></p>
-<p><img src="/2019/04/21/ubuntu下python环境搭建/2.jpg" alt></p>
-<p>如图，官方提供Linux32的免安装包和Linux64的免安装包。根据自己的操作系统位数来选择下载哪一个，我的系统是64位的所以下载Linux64的免安装包。</p>
-<p><em>(2)解压并配置环境变量</em></p>
-<p>与Windows下不同，Linux下NAOqi SDK不需要安装，只需要为其配置相关的环境变量即可。下载之后解压，然后为其添加环境变量。<br>命令行输入 gedit ~/.bashrc , 打开.bashrc文件，然后在文件尾部添加两句：</p>
-<p>export PYTHONPATH=${PYTHONPATH}:/path/to/python-sdk<br>export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/path/to/naoqi/python/sdk</p>
-<p>上述命令中的 /path/to/python-sdk 是指自己下载的 NAOqi 免安装包所在的目录。比如我的是：</p>
-<p>export PYTHONPATH=${PYTHONPATH}:/home/robot/pynaoqi-python2.7-2.1.4.13-linux64<br>export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/robot/pynaoqi-python2.7-2.1.4.13-linux64</p>
-<p>其中，官网的安装教程中少了第二句。如果没有为安装包配置 LD_LIBRARY_PATH 环境变量，会导致系统找不到安装包中的共享库文件。在后面的测试环节会报错：” ImportError:libqipython.so:cannot open shared object file: No such file or directory “</p>
-<p><em>(3)测试</em></p>
-<p>系统环境变量设置完成后，打开一个新的终端，启动python，输入 import naoqi 命令进行测试，如果没有报错说明安装成功。</p>
-<p>如果出现了报错信息，可以参考官网提供的解决方法：<br><a href="http://doc.aldebaran.com/2-1/dev/python/tips-and-tricks.html#python-sdk-troubleshooting" target="_blank" rel="noopener">http://doc.aldebaran.com/2-1/dev/python/tips-and-tricks.html#python-sdk-troubleshooting</a></p>
-<p><em>(4)部分报错的解决方法</em><br>在以上配置过程中，个人遇到了官网中并未列出的问题。(这也是困扰了我一周的问题)</p>
-<p>“ ImportError:libboost_regex.so.1.55.0:cannot open shared object file: No such file or directory “</p>
-<p>这个问题是由于python在导入naoqi模块的时候需要用到一些共享库文件，但是这些库文件不在系统环境路径里。我们可以使用 locate libboost_regex.so.1.55.0 命令定位缺少的共享库文件的路径，然后将返回的路径添加到 LD_LIBRARY_PATH 环境变量中。但是要注意，共享库文件所在路径如果包含空格，则不能正确添加入环境变量。可以通过将该共享库文件复制粘贴到其他已经配置过环境变量的目录下，比如NAOqi SDK免安装包中即可。</p>
-<p>我按照上边的方法后，返回的是libboost_regex.so.1.59.0，将1.59.0添加到环境变量中依然报错，于是我上百度搜索了libboost_regex.so.1.55.0，<br>选择一个网站下载（点击后稍等一会儿会弹出一个下载请求，保存就行），安装的时候千万不要双击安装，<br>在terminal里边输入一下命令：sudo dpkg -i 加上你刚下载的文件名，这会儿可能会报错，说需要一个叫libicu52（名字记不清了），再去百度，和上边一样，下载，terminal输入：sudo dpkg -i 加上文件名。</p>
-<p>图片等会儿补</p>
-<p>至此，Ubuntu系统下的nao机器人python开发环境就配置好了。接下来就可以通过在python文件中导入naoqi 库来编写机器人的控制程序。</p>
-<p>本文部分内容来自下边博客<br><a href="https://blog.csdn.net/li528405176/article/details/85267476" target="_blank" rel="noopener">https://blog.csdn.net/li528405176/article/details/85267476</a> </p>
-
+        
+          <a class="article-more-a" href="/2019/04/21/ubuntu下python环境搭建/#more">more >></a>
+        
       
 
       
